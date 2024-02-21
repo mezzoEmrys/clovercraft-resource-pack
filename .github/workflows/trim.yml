@@ -1,0 +1,21 @@
+name: Trime extra releases
+
+# Controls when the workflow will run
+on:
+  release:
+    types: [published]
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  clean:
+    name: Trim releases
+    runs-on: ubuntu-latest
+    steps:
+    - uses: eregon/keep-last-n-releases@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        n: 5
+        remove_tags_without_release: true
